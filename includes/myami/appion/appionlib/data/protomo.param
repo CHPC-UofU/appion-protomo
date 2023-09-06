@@ -1,0 +1,166 @@
+(* Units are pixels for real space quantities, or reciprocal pixels    *)
+(* for reciprocal space quantities, unless otherwise stated. The units *)
+(* refer to the sampled image. The spatial frequencies for filters are *)
+(* multiplied by the sampling factor and thus refer to the unsampled,  *)
+(* raw image.                                                          *)
+
+(* ====================================================================*)
+(* comments that start with AP are replaced with user defined values   *)
+(* from within Appion.                                                 *)
+(* ====================================================================*) 
+
+tiltseries {
+
+ W = { AP_windowsize_x, AP_windowsize_y } (* AP orig window *)
+
+ O = AP_thickness 	(* AP orig thickness *)
+
+ S = AP_sampling             (* AP sampling *)
+
+ N = W/S (* window size at sampling S *)
+
+ T = O/S           (* thickness at sampling S *)
+
+ F = AP_cos_alpha         (* AP cos( highest tilt angle ) *)
+
+ sampling: S
+
+ binning: AP_binning  (* AP enable/disable binning of raw images *)
+
+ preprocessing: AP_preprocessing  (* AP enable or disable preprocessing of raw images *)
+ 
+ select: "0-999999"  (* AP select specific images in the tilt series *)
+ 
+ exclude: "999999"  (* AP exclude specific images from the tilt series *)
+
+ preprocess {
+
+   logging: false
+
+   border: AP_border
+
+   clip: { AP_clip_low, AP_clip_high }   (* specified as a multiple of the standard deviation *)
+
+   thr: { AP_thr_low, AP_thr_high }   (* specified as density values *)
+   
+   grow: AP_grow
+   
+   mask {
+     gradient: AP_gradient
+     iter: AP_iter_gradient
+     filter: "AP_filter"
+     kernel: { AP_kernel_x, AP_kernel_y }
+     clip: { AP_clip_low, AP_clip_high }
+   }
+
+ }
+
+ window {
+
+   size: N
+   area: AP_window_area  (* AP window area *)
+
+   mask {
+     apodization: { AP_mask_apod_x, AP_mask_apod_y }
+     width: { AP_mask_width_x, AP_mask_width_y }  (* If working on your own, consider using N - 2.5 * apodization *)
+   }
+
+   lowpass {
+     diameter:    { AP_lp_diam_x, AP_lp_diam_y } (* AP lowpass diameter *)  (* If working on your own, consider using { lp_diam_x, lp_diam_y } * S *)
+     apodization: { AP_lp_apod_x, AP_lp_apod_y } (* AP lowpass apodization *)  (* If working on your own, consider using { lp_apod_x, lp_apod_y } * S *)
+   }
+
+   highpass {
+     diameter:    { AP_hp_diam_x, AP_hp_diam_y } (* AP highpass diameter *)  (* If working on your own, consider using { lp_diam_x, lp_diam_y } * S *)
+     apodization: { AP_hp_apod_x, AP_hp_apod_y } (* AP highpass apodization *)  (* If working on your own, consider using { hp_apod_x, hp_apod_y } * S *)
+   }
+
+ }
+
+
+ reference {
+
+   body: T / F
+   slab: AP_slab  (* AP slab-like object *)
+   select: "0-999999"  (* AP select specific images in the tilt series *)
+ 
+   exclude: "999999"  (* AP exclude specific images from the tilt series *)
+ }
+
+
+ align {
+
+   estimate: AP_do_estimation
+
+   maxcorrection: AP_max_correction
+   maxshift: AP_max_shift
+   translimit: AP_translimit
+   
+   norotations: AP_norotations
+   include: "0-999999"  (* AP select specific images in the tilt series *)
+ 
+   exclude: "999999"  (* AP exclude specific images from the tilt series *)
+   mask {
+     apodization: { AP_mask_apod_x, AP_mask_apod_y }
+     width: { AP_mask_width_x, AP_mask_width_y }  (* If working on your own, consider using N - 2.5 * apodization *)
+   }
+
+   correlation {
+     mode: "AP_corr_mode"      (* AP corr mode *)
+     size: { AP_correlation_size_x, AP_correlation_size_y } 
+   }
+
+   peaksearch {
+     radius: { AP_peak_search_radius_x, AP_peak_search_radius_y }
+     cmdiameter: { 0.0, 0.0 } (* AP_optional_cmdiameter *) (* Note: { 0, 0 } is equivalent to turning cmdiameter off *)
+   }
+
+ }
+
+
+ fit {
+
+   orientation: AP_orientation
+   azimuth: AP_azimuth
+   elevation: AP_elevation
+   rotation: AP_rotation
+   scale: AP_scale
+   include: "0-999999"  (* AP select specific images in the tilt series *)
+ 
+   exclude: "999999"  (* AP exclude specific images from the tilt series *)
+   logging: AP_logging  (* AP enable diagnostic terminal output *)
+   loglevel: AP_loglevel  (* AP increase verbosity of diagnostic output *)
+
+ }
+
+
+ map {
+
+   size: { AP_map_size_x, AP_map_size_y, AP_map_size_z }  (* AP reconstruction map size *)
+   body: T / F
+   slab: AP_slab  (* AP slab-like object *)
+   sampling: AP_sampling  (* AP reconstruction map sampling *)
+   select: "0-999999"  (* AP select specific images in the tilt series reconstruction *)
+   
+   exclude: "999999"  (* AP exclude specific images from the tilt series reconstruction *)
+   lowpass {  (* AP lowpass map *)
+     diameter:    { AP_lp_diam_x, AP_lp_diam_y }  (* If working on your own, consider using { lp_diam_x, lp_diam_y } * S *)
+   }
+
+   logging: false  (* AP enable diagnostic terminal output *)
+
+ }
+
+ (* prefix: "AP_filename_prefix"   AP prefix for input and output files *)
+ 
+ suffix: ".AP_image_extension"  (* AP filetype extension for images *)
+
+ pathlist: "AP_raw_path"  (* AP path to raw directory *)
+
+ cachedir: "AP_cachedir"  (* AP directory where cache files are stored *)
+
+ outdir: "AP_protomo_outdir"  (* AP directory where other output files are stored *)
+
+ logging: AP_logging  (* AP enable diagnostic terminal output *)
+
+}

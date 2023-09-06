@@ -1,6 +1,17 @@
+# syntax=docker/dockerfile:1
 FROM centos:7
-MAINTAINER Alex Noble <anoble@nysbc.org>
-LABEL authors="Neil Voss, Carl Negro, Alex Noble"
+
+# Docker image build arguments:
+ARG imageversion="localdev"
+
+# Labels
+LABEL org.opencontainers.image.authors="Neil Voss, Carl Negro, Alex Noble <anoble@nysbc.org>"
+LABEL org.opencontainers.image.description="A Docker-based distribution of the Appion-Protomo *fiducial-less* tilt-series alignment suite."
+LABEL org.opencontainers.image.licenses="Apache-2.0"
+LABEL org.opencontainers.image.title="appion-protomo"
+LABEL org.opencontainers.image.url="https://gitlab.chpc.utah.edu/chpc/projects/appion-protomo"
+LABEL org.opencontainers.image.vendor="nysbc.org"
+LABEL org.opencontainers.image.version=${imageversion}
 
 ### install software
 RUN yum -y install epel-release yum && yum -y install \
@@ -28,9 +39,9 @@ RUN yum -y install epel-release yum && yum -y install \
 ### MariaDB setup
 && sed -i.bak 's/max_allowed_packet = [0-9]*M/max_allowed_packet = 24M/' /etc/my.cnf \
 #
-### Appion specific installs   
+### Appion specific installs
 && dbus-uuidgen > /var/lib/dbus/machine-id \
-&& pip --no-cache-dir install --upgrade pip \
+&& pip --no-cache-dir install --upgrade pip==19.3.1  \
 && pip --no-cache-dir install joblib pyfftw3 fs==0.5.4  scikit-learn==0.18.2 \
 && updatedb \
 && mkdir -p /emg/data/appion /sw/sql \
@@ -43,9 +54,15 @@ COPY config/info.php /var/www/html/info.php
 COPY sql/ /sw/sql/
 EXPOSE 80 5901
 
-### EMAN 1, Protomo, FFMPEG, IMOD, Tomo3D, TomoCTF setup  (fix libpyEM.so?)
-RUN wget http://emg.nysbc.org/redmine/attachments/download/11248/myami-trunk-01-29-19.tar.gz && tar xzfv myami-trunk-01-29-19.tar.gz -C /sw && rm myami-trunk-01-29-19.tar.gz \
-&& wget http://emg.nysbc.org/redmine/attachments/download/10961/eman-linux-x86_64-cluster-1.9_stripped.tar.gz && tar xzfv eman-linux-x86_64-cluster-1.9_stripped.tar.gz -C /sw && rm eman-linux-x86_64-cluster-1.9_stripped.tar.gz \
+### ctffind4 (fix missing python binary?)
+COPY includes/ctffind-4.1.5-linux64 /usr/local/share/ctffind4
+RUN ln -sv /usr/local/share/ctffind4/bin/ctffind /usr/bin/ctffind4 \
+&& ln -sv /usr/local/share/ctffind4/bin/ctffind /usr/bin/ctffind \
+&& ln -sv /usr/local/share/ctffind4/bin/ctffind_plot_results.sh /usr/bin/ctffind_plot_results.sh
+
+### EMAN 1, Protomo, FFMPEG, IMOD, Tomo3D, TomoCTF setup  (fix libpyEM.so?), ctffind4 (fix missing python binary?)
+COPY includes/myami /sw/myami
+RUN wget http://emg.nysbc.org/redmine/attachments/download/10961/eman-linux-x86_64-cluster-1.9_stripped.tar.gz && tar xzfv eman-linux-x86_64-cluster-1.9_stripped.tar.gz -C /sw && rm eman-linux-x86_64-cluster-1.9_stripped.tar.gz \
 && wget http://emg.nysbc.org/redmine/attachments/download/8380/protomo2-centos7-docker.tgz && tar xzfv protomo2-centos7-docker.tgz -C /sw && rm protomo2-centos7-docker.tgz \
 && wget https://johnvansickle.com/ffmpeg/builds/ffmpeg-git-amd64-static.tar.xz && tar xfv ffmpeg-git-amd64-static.tar.xz -C /sw && rm ffmpeg-git-amd64-static.tar.xz \
 && wget http://emg.nysbc.org/redmine/attachments/download/10729/tomo3d_January2015.tar.gz && tar xzfv tomo3d_January2015.tar.gz -C /sw && rm tomo3d_January2015.tar.gz \
@@ -53,15 +70,18 @@ RUN wget http://emg.nysbc.org/redmine/attachments/download/11248/myami-trunk-01-
 && wget http://emg.nysbc.org/redmine/attachments/download/10964/imod_4.10.11_docker_stripped.tar.gz && tar xzfv imod_4.10.11_docker_stripped.tar.gz -C /sw && rm imod_4.10.11_docker_stripped.tar.gz \
 && find /sw/ffmpeg*/. ! -name 'ffmpeg' -type f -exec rm -f {} + \
 && ln -sv /sw/ffmpeg* /sw/ffmpeg-64bit-static \
-&& ln -sv /sw/eman1/lib/libpyEM.so.ucs4.py2.6 /sw/eman1/lib/libpyEM.so \
+&& ln -sv /sw/eman1/lib/libpyEM.so.ucs4.py2.6 /sw/eman1/lib/libpyEM.so
 #
-### Myami setup
-&& chmod 444 /var/www/html/info.php \
-&& ln -sv /sw/myami/myamiweb /var/www/html/myamiweb \
-&& mkdir -p /etc/myami /var/cache/myami/redux/ && chmod 777 /var/cache/myami/redux/ \
-&& ln -sv /sw/myami/appion/appionlib /usr/lib64/python2.7/site-packages/ \
-&& ln -sv /sw/myami/redux/bin/reduxd /usr/bin/ && chmod 755 /usr/bin/reduxd \
-&& for i in pyami imageviewer leginon pyscope sinedon redux; \
+
+RUN chmod 444 /var/www/html/info.php \
+&& ln -sv /sw/myami/myamiweb /var/www/html/myamiweb
+RUN mkdir -p /etc/myami /var/cache/myami/redux/ && chmod 777 /var/cache/myami/redux/ \
+&& ln -sv /sw/myami/appion/appionlib /usr/lib64/python2.7/site-packages/
+
+RUN ls -l /sw/myami/redux/bin/reduxd
+RUN ln -sv /sw/myami/redux/bin/reduxd /usr/bin/
+RUN chmod 755 /usr/bin/reduxd
+RUN for i in pyami imageviewer leginon pyscope sinedon redux; \
 	do ln -sv /sw/myami/$i /usr/lib64/python2.7/site-packages/; done \
 #
 ### Compile numextension and redux
@@ -95,7 +115,7 @@ RUN chown -R appionuser:users /home/appionuser /emg/data \
 && chmod -R 777 /emg/ \
 && chmod 700 /home/appionuser/.vnc/xstartup \
 && rm -rf root/.cache/ /anaconda-post.log \
-&& sed -i 's,Appion-Protomo in a Docker Container,Appion-Protomo in a Docker Container<br><font size=5>version 1.2.2</font><br><font size=3><a href='https://github.com/nysbc/appion-protomo' target='_blank'><b>Check if there is an update! | <a href='https://groups.google.com/forum/#!forum/appion-protomo' target='_blank'>Get help from the Google group!</a></b></font>,g' /sw/myami/myamiweb/config.php \
+&& sed -i "s,Appion-Protomo in a Docker Container,Appion-Protomo in a Docker Container<br><font size=5>version ${imageversion}</font><br><font size=3><a href='https://github.com/nysbc/appion-protomo' target='_blank'><b>Check if there is an update! | <a href='https://groups.google.com/forum/#!forum/appion-protomo' target='_blank'>Get help from the Google group!</a></b></font>,g" /sw/myami/myamiweb/config.php \
 && sed -i -e '/2wayv/d' -e '/rctv/d' -e '/3wvi/d' -e '/loi.php/d' -e '/dualv/d' -e '/templ/d' /sw/myami/myamiweb/index.php \
 && updatedb
 

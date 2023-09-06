@@ -1,4 +1,10 @@
-# appion-protomo v1.2.2
+# appion-protomo
+
+> **_NOTE:_**
+> 
+> * This repository is a fork of https://github.com/nysbc/appion-protomo.
+> * CHPC developers should read through [README-CHPC.md](README-CHPC.md) instead. 
+
 A Docker-based distribution of the Appion-Protomo *fiducial-less* tilt-series alignment suite.
 
 Protomo aligns tilt-series based only on the accumulated SNR of the sample — no fiducials or features are used.
