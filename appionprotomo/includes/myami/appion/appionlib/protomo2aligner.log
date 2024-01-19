@@ -1,0 +1,132 @@
+[ anoble@node46: Sun Nov  1 22:47:23 2020 ]
+/home/anoble/myami/appion/bin/protomo2aligner.py \
+  --dose_presets=False --frame_aligned=True --parallel=True --region_x=2880 \
+  --region_y=2046 --sampling=8 --map_sampling=8 --thickness=750 \
+  --lowpass_diameter_x=15 --lowpass_diameter_y=15 --lowpass_apod_x=37.5 \
+  --lowpass_apod_y=37.5 --highpass_diameter_x=2170 --highpass_diameter_y=2170 \
+  --highpass_apod_x=1085 --highpass_apod_y=1085 --corr_mode=mcf \
+  --preprocessing=true --border=100 --clip_low=3.5 --clip_high=3.5 \
+  --gradient=true --iter_gradient=false --imod_coarse_align=True \
+  --filter=median --kernel_x=5 --kernel_y=5 --grow=0 --window_area=0.95 \
+  --mask_apod_x=10 --mask_apod_y=10 --mask_width_x=335 --mask_width_y=230 \
+  --correlation_size_x=192 --correlation_size_y=192 --peak_search_radius_x=1000 \
+  --peak_search_radius_y=1000 --logging=true --loglevel=2 --image_file_type=mrc \
+  --gridsearch_limit=2.0 --gridsearch_step=0.1 --create_tilt_video=true \
+  --create_reconstruction=true --show_window_size=true --keep_recons=false \
+  --slab=true --map_size_x=720 --map_size_y=511 --video_type=html5vid \
+  --defocus_estimate=False --center_all_images=True --re_center_images=True \
+  --further_alignment=False --runname=tiltseries0001 \
+  --rundir=/gpfs/appion/acheng/20nov01b/protomo_alignments/tiltseries0001 \
+  --tiltseries=1 --defocus=2 --sessionname=20nov01b --pixelsize=1.06071 \
+  --dimx=5760 --dimy=4092 --coarse=True --projectid=828 --expid=11259 \
+  --jobtype=protomo 
+[ anoble@node46: Sun Nov  1 22:50:27 2020 ]
+/home/anoble/myami/appion/bin/protomo2aligner.py \
+  --dose_presets=False --frame_aligned=True --parallel=True --region_x=2880 \
+  --region_y=2046 --sampling=8 --map_sampling=8 --thickness=750 \
+  --lowpass_diameter_x=15 --lowpass_diameter_y=15 --lowpass_apod_x=37.5 \
+  --lowpass_apod_y=37.5 --highpass_diameter_x=2170 --highpass_diameter_y=2170 \
+  --highpass_apod_x=1085 --highpass_apod_y=1085 --corr_mode=mcf \
+  --preprocessing=true --border=100 --clip_low=3.5 --clip_high=3.5 \
+  --gradient=true --iter_gradient=false --imod_coarse_align=True \
+  --filter=median --kernel_x=5 --kernel_y=5 --grow=0 --window_area=0.95 \
+  --mask_apod_x=10 --mask_apod_y=10 --mask_width_x=335 --mask_width_y=230 \
+  --correlation_size_x=192 --correlation_size_y=192 --peak_search_radius_x=1000 \
+  --peak_search_radius_y=1000 --logging=true --loglevel=2 --image_file_type=mrc \
+  --gridsearch_limit=2.0 --gridsearch_step=0.1 --create_tilt_video=true \
+  --create_reconstruction=true --show_window_size=true --keep_recons=false \
+  --slab=true --map_size_x=720 --map_size_y=511 --video_type=html5vid \
+  --defocus_estimate=False --center_all_images=True --re_center_images=True \
+  --further_alignment=False --runname=tiltseries0001 \
+  --rundir=/gpfs/appion/acheng/20nov01b/protomo_alignments/tiltseries0001 \
+  --tiltseries=1 --defocus=2 --sessionname=20nov01b --pixelsize=1.06071 \
+  --dimx=5760 --dimy=4092 --coarse=True --projectid=828 --expid=11259 \
+  --jobtype=protomo 
+[ anoble@node46: Sun Nov  1 22:51:09 2020 ]
+/home/anoble/myami/appion/bin/protomo2aligner.py \
+  --dose_presets=False --frame_aligned=True --parallel=True --region_x=2880 \
+  --region_y=2046 --sampling=8 --map_sampling=8 --thickness=750 \
+  --lowpass_diameter_x=15 --lowpass_diameter_y=15 --lowpass_apod_x=37.5 \
+  --lowpass_apod_y=37.5 --highpass_diameter_x=2170 --highpass_diameter_y=2170 \
+  --highpass_apod_x=1085 --highpass_apod_y=1085 --corr_mode=mcf \
+  --preprocessing=true --border=100 --clip_low=3.5 --clip_high=3.5 \
+  --gradient=true --iter_gradient=false --imod_coarse_align=True \
+  --filter=median --kernel_x=5 --kernel_y=5 --grow=0 --window_area=0.95 \
+  --mask_apod_x=10 --mask_apod_y=10 --mask_width_x=335 --mask_width_y=230 \
+  --correlation_size_x=192 --correlation_size_y=192 --peak_search_radius_x=1000 \
+  --peak_search_radius_y=1000 --logging=true --loglevel=2 --image_file_type=mrc \
+  --gridsearch_limit=2.0 --gridsearch_step=0.1 --create_tilt_video=true \
+  --create_reconstruction=true --show_window_size=true --keep_recons=false \
+  --slab=true --map_size_x=720 --map_size_y=511 --video_type=html5vid \
+  --defocus_estimate=False --center_all_images=True --re_center_images=True \
+  --further_alignment=False --runname=tiltseries0001 \
+  --rundir=/gpfs/appion/acheng/20nov01b/protomo_alignments/tiltseries0001 \
+  --tiltseries=1 --defocus=2 --sessionname=20nov01b --pixelsize=1.06071 \
+  --dimx=5760 --dimy=4092 --coarse=True --projectid=828 --expid=11259 \
+  --jobtype=protomo 
+[ anoble@node46: Sun Nov  1 22:52:10 2020 ]
+/home/anoble/myami/appion/bin/protomo2aligner.py \
+  --dose_presets=False --frame_aligned=True --parallel=True --region_x=2880 \
+  --region_y=2046 --sampling=8 --map_sampling=8 --thickness=750 \
+  --lowpass_diameter_x=15 --lowpass_diameter_y=15 --lowpass_apod_x=37.5 \
+  --lowpass_apod_y=37.5 --highpass_diameter_x=2170 --highpass_diameter_y=2170 \
+  --highpass_apod_x=1085 --highpass_apod_y=1085 --corr_mode=mcf \
+  --preprocessing=true --border=100 --clip_low=3.5 --clip_high=3.5 \
+  --gradient=true --iter_gradient=false --imod_coarse_align=True \
+  --filter=median --kernel_x=5 --kernel_y=5 --grow=0 --window_area=0.95 \
+  --mask_apod_x=10 --mask_apod_y=10 --mask_width_x=335 --mask_width_y=230 \
+  --correlation_size_x=192 --correlation_size_y=192 --peak_search_radius_x=1000 \
+  --peak_search_radius_y=1000 --logging=true --loglevel=2 --image_file_type=mrc \
+  --gridsearch_limit=2.0 --gridsearch_step=0.1 --create_tilt_video=true \
+  --create_reconstruction=true --show_window_size=true --keep_recons=false \
+  --slab=true --map_size_x=720 --map_size_y=511 --video_type=html5vid \
+  --defocus_estimate=False --center_all_images=True --re_center_images=True \
+  --further_alignment=False --runname=tiltseries0001 \
+  --rundir=/gpfs/appion/acheng/20nov01b/protomo_alignments/tiltseries0001 \
+  --tiltseries=1 --defocus=2 --sessionname=20nov01b --pixelsize=1.06071 \
+  --dimx=5760 --dimy=4092 --coarse=True --projectid=828 --expid=11259 \
+  --jobtype=protomo 
+[ anoble@node46: Sun Nov  1 22:53:17 2020 ]
+/home/anoble/myami/appion/bin/protomo2aligner.py \
+  --dose_presets=False --frame_aligned=True --parallel=True --region_x=2880 \
+  --region_y=2046 --sampling=8 --map_sampling=8 --thickness=750 \
+  --lowpass_diameter_x=15 --lowpass_diameter_y=15 --lowpass_apod_x=37.5 \
+  --lowpass_apod_y=37.5 --highpass_diameter_x=2170 --highpass_diameter_y=2170 \
+  --highpass_apod_x=1085 --highpass_apod_y=1085 --corr_mode=mcf \
+  --preprocessing=true --border=100 --clip_low=3.5 --clip_high=3.5 \
+  --gradient=true --iter_gradient=false --imod_coarse_align=True \
+  --filter=median --kernel_x=5 --kernel_y=5 --grow=0 --window_area=0.95 \
+  --mask_apod_x=10 --mask_apod_y=10 --mask_width_x=335 --mask_width_y=230 \
+  --correlation_size_x=192 --correlation_size_y=192 --peak_search_radius_x=1000 \
+  --peak_search_radius_y=1000 --logging=true --loglevel=2 --image_file_type=mrc \
+  --gridsearch_limit=2.0 --gridsearch_step=0.1 --create_tilt_video=true \
+  --create_reconstruction=true --show_window_size=true --keep_recons=false \
+  --slab=true --map_size_x=720 --map_size_y=511 --video_type=html5vid \
+  --defocus_estimate=False --center_all_images=True --re_center_images=True \
+  --further_alignment=False --runname=tiltseries0001 \
+  --rundir=/gpfs/appion/acheng/20nov01b/protomo_alignments/tiltseries0001 \
+  --tiltseries=1 --defocus=2 --sessionname=20nov01b --pixelsize=1.06071 \
+  --dimx=5760 --dimy=4092 --coarse=True --projectid=828 --expid=11259 \
+  --jobtype=protomo 
+[ anoble@node46: Sun Nov  1 22:54:29 2020 ]
+/home/anoble/myami/appion/bin/protomo2aligner.py \
+  --dose_presets=False --frame_aligned=True --parallel=True --region_x=2880 \
+  --region_y=2046 --sampling=8 --map_sampling=8 --thickness=750 \
+  --lowpass_diameter_x=15 --lowpass_diameter_y=15 --lowpass_apod_x=37.5 \
+  --lowpass_apod_y=37.5 --highpass_diameter_x=2170 --highpass_diameter_y=2170 \
+  --highpass_apod_x=1085 --highpass_apod_y=1085 --corr_mode=mcf \
+  --preprocessing=true --border=100 --clip_low=3.5 --clip_high=3.5 \
+  --gradient=true --iter_gradient=false --imod_coarse_align=True \
+  --filter=median --kernel_x=5 --kernel_y=5 --grow=0 --window_area=0.95 \
+  --mask_apod_x=10 --mask_apod_y=10 --mask_width_x=335 --mask_width_y=230 \
+  --correlation_size_x=192 --correlation_size_y=192 --peak_search_radius_x=1000 \
+  --peak_search_radius_y=1000 --logging=true --loglevel=2 --image_file_type=mrc \
+  --gridsearch_limit=2.0 --gridsearch_step=0.1 --create_tilt_video=true \
+  --create_reconstruction=true --show_window_size=true --keep_recons=false \
+  --slab=true --map_size_x=720 --map_size_y=511 --video_type=html5vid \
+  --defocus_estimate=False --center_all_images=True --re_center_images=True \
+  --further_alignment=False --runname=tiltseries0001 \
+  --rundir=/gpfs/appion/acheng/20nov01b/protomo_alignments/tiltseries0001 \
+  --tiltseries=1 --defocus=2 --sessionname=20nov01b --pixelsize=1.06071 \
+  --dimx=5760 --dimy=4092 --coarse=True --projectid=828 --expid=11259 \
+  --jobtype=protomo 
